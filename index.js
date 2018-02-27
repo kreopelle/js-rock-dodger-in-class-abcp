@@ -75,38 +75,48 @@ function endGame() {
 }
 
 function moveDodger(e) {
-  const code = e.which
-
-  if ([LEFT_ARROW, RIGHT_ARROW].indexOf(code) > -1) {
-    e.preventDefault()
-    e.stopPropagation()
+  e.preventDefault();
+  e.stopPropagation();
+  if (e.which === 37){
+    moveDodgerLeft();
+  } else if (e.which === 39){
+    moveDodgerRight();
   }
+  
+  
+  //if (key press is right arrow 39) {
+  //  moveDodgerRight();
+  //} else if (key press is left arrow 37) {
+  //  moveDodgerLeft();
+  //} else {
+    //do nothing; 
+  //}
+  // if the key is the right arrow key, move the dodger to the right
+  // if the key is the left arrow key, move the dodger to the left
+  // use window.requestAnimationFrame, move the element 4px 
+  // define move dodger left and move dodger right to call in moveDodger 
 
-  if (code === LEFT_ARROW) {
-    moveDodgerLeft()
-  } else if (code === RIGHT_ARROW) {
-    moveDodgerRight()
-  }
+  
+  
 }
 
 function moveDodgerLeft() {
-  window.requestAnimationFrame(function() {
-    const left = positionToInteger(DODGER.style.left)
-
-    if (left > 0) {
-      DODGER.style.left = `${left - 4}px`;
-    }
-  })
+  //remove 4 px from the current dodger left style
+  var myPosition = $('#dodger').style.left;
+  var myPositionInNum = positionToInteger(myPosition);
+  var newPosition = myPositionInNum - 4;
+  document.getElementById("dodger").style.left = newPosition;
+  
 }
 
 function moveDodgerRight() {
-  window.requestAnimationFrame(function() {
-    const left = positionToInteger(DODGER.style.left)
+  //add 4 px from the current dodger left style 
+  var myPosition = $('dodger').style.left;
+  positionToInteger(myPosition) + 4;
+}
 
-    if (left < 360) {
-      DODGER.style.left = `${left + 4}px`;
-    }
-  })
+function positionToInteger(p) {
+  return parseInt(p.split('px')[0]) || 0
 }
 
 function positionToInteger(p) {
